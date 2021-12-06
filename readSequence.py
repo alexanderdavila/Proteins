@@ -18,6 +18,14 @@ def id_reading (file):
     #print(size(PDBlist2))
     return PDBlist2
 
+'''Selecting structures from PDB'''
+def download_pdb(pdblist):
+    pdbl = PDBList()
+
+    for i in pdblist:
+         pdbl.retrieve_pdb_file(i,pdir='PDB',file_format="pdb") #-> str
+         #print(size(pdbl))
+
 '''read sequence from pdb'''
 def read_sequence(pdblist):
     for list in pdblist:
@@ -99,12 +107,13 @@ def main():
      f = open('test.txt','w')
      inicio=time.time()
      pdblist=id_reading("pruebaId.txt")
+     #download_pdb(pdblist)
      wsize=17
      aminoacids="DERKNHQSTAGVPLFYIMWC-"
      diccionario=create_dictionary(aminoacids)
      #print(diccionario)
      f.write(str(diccionario))
-     for list in pdblist:
+     for list in pdblist:   
         PDBFile = "./PDB/pdb"+list+".ent"
         #print("./PDB/pdb"+list+".ent")
         f.write("./PDB/pdb"+list+".ent")
