@@ -2,18 +2,11 @@ import tensorflow as tf
 
 
 def main():
-
-
-    print("test")
-    print(tf.__version__)
-    print("test")
-    dataset = tf.data.Dataset.from_tensor_slices([1, 2, 3])
+    
+    dataset = tf.data.Dataset.from_tensor_slices({"secuence":{"V1": {"Ventana1":[[[1,2],[1,2]],[[1,2],[1,2]],[[1,2],[1,2]]],"Ventana2":[[[1,2],[1,2]],[[1,2],[1,2]],[[1,2],[1,2]]],"4-5":[4,5,1]},
+                                                          "V2": {"Ventana2":[[[1,2],[1,2]],[[1,2],[1,2]],[[1,2],[1,2]]],"Ventana3":[[[1,2],[1,2]],[[1,2],[1,2]],[[1,2],[1,2]]],"4-5":[4,5,1]},
+                                                          "V3": {"Ventana3":[[[1,2],[1,2]],[[1,2],[1,2]],[[1,2],[1,2]]],"Ventana4":[[[1,2],[1,2]],[[1,2],[1,2]],[[1,2],[1,2]]],"4-5":[4,5,1]}}})
     print(list(dataset.as_numpy_iterator()))
-
-
-
-
-
 
 if __name__=="__main__":
     main()

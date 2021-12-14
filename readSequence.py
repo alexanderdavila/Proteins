@@ -4,6 +4,7 @@ from Bio.PDB import PDBList
 import numpy as np
 import time
 from collections import defaultdict
+from itertools import *
 
 n=17
 numAdd=(n // 2)
@@ -111,6 +112,14 @@ def prepararSecuencia(sequence):
     #print(aminoacidos)
     return sequence_complete
 
+def pairwise(iterable):
+    # pairwise('ABCDEFG') --> AB BC CD DE EF FG
+    l=[]
+    l=tee(iterable,n)
+    for i in range(1,n):
+      for a in range(i):
+        next(l[i],None)
+    return zip(*l)
 
 def main():
      f = open('test.txt','w')
@@ -135,56 +144,57 @@ def main():
         f.write("tamaño secuencia: "+str(len(record.seq)))
         #sequence_original="--------"+read_sequence()+"--------"
         sequence_original=prepararSecuencia(record.seq)
+        ventaneo=pairwise(sequence_original)
         # diccionario=create_dictionary(aminoacids)
         # print(diccionario)
-        for i in range(0,len(sequence_original)):
-            sequence=ventana(sequence_original,i,n)
+        for sequence in ventaneo:
+            #sequence=ventana(sequence_original,i,n)
             matriz1=crear_matriz()
             matriz2=crear_matriz()
             matriz3=crear_matriz()
             lista=[]
-            if i <= len(sequence_original)-n:
+            #if i <= len(sequence_original)-n:
 
                 #print("\nsecuencia: "+sequence)
-                f.write("\nsecuencia: "+str(sequence))
-                for j in range(0,len(sequence)-1):
-                    lista.append(sequence[j])
-                    flag=element_exist(lista,j)
-                    if flag:
-                        continue
-                    coordenadas1=recorrer_sequence(sequence,j,1)
-                    tupla1=get_coordenadas(coordenadas1,diccionario)
-                    matrizd1=llenar_matriz(tupla1,matriz1)
-                    #print(coordenadas1)
-                    #print("coordenadas1: "+ str(tupla1))
-                    if j < len(sequence)-2:
-                        coordenadas2=recorrer_sequence(sequence,j,2)
-                        tupla2=get_coordenadas(coordenadas2,diccionario)
-                        matrizd2=llenar_matriz(tupla2,matriz2)
-                        #print("coordenadas2: "+ str(tupla2))
-                        #print(coordenadas2)
-                    if j < len(sequence)-3:
-                        coordenadas3=recorrer_sequence(sequence,j,3)
-                        tupla3=get_coordenadas(coordenadas3,diccionario)
-                        matriz3d=llenar_matriz(tupla3,matriz3)
-                        #print("coordenadas3: "+ str(tupla3))
-                        #print(coordenadas3)
+            f.write("\nsecuencia: "+str(sequence))
+            for j in range(0,len(sequence)-1):
+                lista.append(sequence[j])
+                flag=element_exist(lista,j)
+                if flag:
+                    continue
+                coordenadas1=recorrer_sequence(sequence,j,1)
+                tupla1=get_coordenadas(coordenadas1,diccionario)
+                matrizd1=llenar_matriz(tupla1,matriz1)
+                #print(coordenadas1)
+                #print("coordenadas1: "+ str(tupla1))
+                if j < len(sequence)-2:
+                    coordenadas2=recorrer_sequence(sequence,j,2)
+                    tupla2=get_coordenadas(coordenadas2,diccionario)
+                    matrizd2=llenar_matriz(tupla2,matriz2)
+                    #print("coordenadas2: "+ str(tupla2))
+                    #print(coordenadas2)
+                if j < len(sequence)-3:
+                    coordenadas3=recorrer_sequence(sequence,j,3)
+                    tupla3=get_coordenadas(coordenadas3,diccionario)
+                    matriz3d=llenar_matriz(tupla3,matriz3)
+                    #print("coordenadas3: "+ str(tupla3))
+                    #print(coordenadas3)
                 
-                #print("\nMATRIZ 1D\n")
-                #print(matrizd1)
-                f.write("\nMATRIZ 1D\n")
-                f.write(str(matriz1))
-                #print("\nMATRIZ 2D\n")
-                #print(matrizd2)
-                f.write("\nMATRIZ 2D\n")
-                f.write(str(matriz2))
-                #print("\nMATRIZ 3D\n")
-                #print(matriz3d)
-                f.write("\nMATRIZ 3D\n")
-                f.write(str(matriz3))
+            #print("\nMATRIZ 1D\n")
+            #print(matrizd1)
+            f.write("\nMATRIZ 1D\n")
+            f.write(str(matriz1))
+            #print("\nMATRIZ 2D\n")
+            #print(matrizd2)
+            f.write("\nMATRIZ 2D\n")
+            f.write(str(matriz2))
+            #print("\nMATRIZ 3D\n")
+            #print(matriz3d)
+            f.write("\nMATRIZ 3D\n")
+            f.write(str(matriz3))
 
-            else:
-                break
+        # else:
+        #         break
 
         fin=time.time()
         print("TIEMPO:"+str(fin-inicio))
