@@ -4,14 +4,11 @@ import tensorflow as tf
 def main():
 
 
-
+    print("test")
     print(tf.__version__)
+    print("test")
     dataset = tf.data.Dataset.from_tensor_slices([1, 2, 3])
-    for element in dataset:
-        print(element)
-        tf.Tensor(1, shape=(), dtype=int32)
-        tf.Tensor(2, shape=(), dtype=int32)
-        tf.Tensor(3, shape=(), dtype=int32)
+    print(list(dataset.as_numpy_iterator()))
 
 
 

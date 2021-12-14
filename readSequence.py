@@ -5,6 +5,9 @@ import numpy as np
 import time
 from collections import defaultdict
 
+n=17
+numAdd=(n // 2)
+
 '''reading id's from pdb'''
 def id_reading (file):
     fic = open(file, "r")
@@ -102,13 +105,19 @@ def ventana(sequence,init,wsize):
 
     return substring
 
+def prepararSecuencia(sequence):
+    complemento=list("-"*numAdd)
+    sequence_complete=complemento+list(sequence)+complemento
+    #print(aminoacidos)
+    return sequence_complete
+
 
 def main():
      f = open('test.txt','w')
      inicio=time.time()
      pdblist=id_reading("pruebaId.txt")
      #download_pdb(pdblist)
-     wsize=17
+     #wsize=17
      aminoacids="DERKNHQSTAGVPLFYIMWC-"
      diccionario=create_dictionary(aminoacids)
      #print(diccionario)
@@ -125,16 +134,16 @@ def main():
         #print("tamaño secuencia: "+str(len(record.seq)))
         f.write("tamaño secuencia: "+str(len(record.seq)))
         #sequence_original="--------"+read_sequence()+"--------"
-        sequence_original="--------"+record.seq+"--------"
+        sequence_original=prepararSecuencia(record.seq)
         # diccionario=create_dictionary(aminoacids)
         # print(diccionario)
         for i in range(0,len(sequence_original)):
-            sequence=ventana(sequence_original,i,wsize)
+            sequence=ventana(sequence_original,i,n)
             matriz1=crear_matriz()
             matriz2=crear_matriz()
             matriz3=crear_matriz()
             lista=[]
-            if i <= len(sequence_original)-wsize:
+            if i <= len(sequence_original)-n:
 
                 #print("\nsecuencia: "+sequence)
                 f.write("\nsecuencia: "+str(sequence))
