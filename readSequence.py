@@ -99,12 +99,12 @@ def element_exist(list,index):
         flag=False
     return flag
 
-def ventana(sequence,init,wsize):
+# def ventana(sequence,init,wsize):
 
-    end=init+wsize
-    substring=sequence[init:end]
+#     end=init+wsize
+#     substring=sequence[init:end]
 
-    return substring
+#     return substring
 
 def prepararSecuencia(sequence):
     complemento=list("-"*numAdd)
@@ -120,6 +120,7 @@ def pairwise(iterable):
       for a in range(i):
         next(l[i],None)
     return zip(*l)
+
 
 def main():
      f = open('test.txt','w')
@@ -145,9 +146,10 @@ def main():
         #sequence_original="--------"+read_sequence()+"--------"
         sequence_original=prepararSecuencia(record.seq)
         ventaneo=pairwise(sequence_original)
+        a=combinations(ventaneo,2)
         # diccionario=create_dictionary(aminoacids)
         # print(diccionario)
-        for sequence in ventaneo:
+        for sequence in a:
             #sequence=ventana(sequence_original,i,n)
             matriz1=crear_matriz()
             matriz2=crear_matriz()
