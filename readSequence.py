@@ -102,18 +102,18 @@ def main():
      wsize=17
      aminoacids="DERKNHQSTAGVPLFYIMWC-"
      diccionario=create_dictionary(aminoacids)
-     print(diccionario)
+     #print(diccionario)
      f.write(str(diccionario))
      for list in pdblist:
         PDBFile = "./PDB/pdb"+list+".ent"
-        print("./PDB/pdb"+list+".ent")
+        #print("./PDB/pdb"+list+".ent")
         f.write("./PDB/pdb"+list+".ent")
         with open(PDBFile, 'r') as pdb_file:
             for record in SeqIO.parse(pdb_file, 'pdb-atom'):
                 pdb_file.close()
-        print("secuencia: "+record.seq)
+        #print("secuencia: "+record.seq)
         f.write("secuencia: "+str(record.seq))
-        print("tamaño secuencia: "+str(len(record.seq)))
+        #print("tamaño secuencia: "+str(len(record.seq)))
         f.write("tamaño secuencia: "+str(len(record.seq)))
         #sequence_original="--------"+read_sequence()+"--------"
         sequence_original="--------"+record.seq+"--------"
@@ -127,7 +127,7 @@ def main():
             lista=[]
             if i <= len(sequence_original)-wsize:
 
-                print("\nsecuencia: "+sequence)
+                #print("\nsecuencia: "+sequence)
                 f.write("\nsecuencia: "+str(sequence))
                 for j in range(0,len(sequence)-1):
                     lista.append(sequence[j])
@@ -152,16 +152,16 @@ def main():
                         #print("coordenadas3: "+ str(tupla3))
                         #print(coordenadas3)
                 
-                print("\nMATRIZ 1D\n")
-                print(matrizd1)
+                #print("\nMATRIZ 1D\n")
+                #print(matrizd1)
                 f.write("\nMATRIZ 1D\n")
                 f.write(str(matriz1))
-                print("\nMATRIZ 2D\n")
-                print(matrizd2)
+                #print("\nMATRIZ 2D\n")
+                #print(matrizd2)
                 f.write("\nMATRIZ 2D\n")
                 f.write(str(matriz2))
-                print("\nMATRIZ 3D\n")
-                print(matriz3d)
+                #print("\nMATRIZ 3D\n")
+                #print(matriz3d)
                 f.write("\nMATRIZ 3D\n")
                 f.write(str(matriz3))
 
