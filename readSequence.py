@@ -3,6 +3,7 @@ from Bio import SeqIO
 from Bio.PDB import PDBList
 import numpy as np
 import time
+from collections import defaultdict
 
 '''reading id's from pdb'''
 def id_reading (file):
@@ -35,7 +36,7 @@ def crear_matriz():
 
 '''Crear diccionario'''
 def create_dictionary(aminoacids):
-    dictionary=dict(zip(aminoacids,[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]))
+    dictionary=defaultdict(lambda: 20,zip(aminoacids,[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]))
     return dictionary
 
 
