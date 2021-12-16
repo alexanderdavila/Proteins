@@ -4,13 +4,10 @@ from Bio.PDB import PDBList
 import numpy as np
 import time
 from collections import defaultdict
-<<<<<<< HEAD
 from itertools import *
 
 n=17
 numAdd=(n // 2)
-=======
->>>>>>> dd358738d1a9cea4655a217056c75bfec28576eb
 
 '''reading id's from pdb'''
 def id_reading (file):
@@ -152,6 +149,13 @@ def main():
         #a=combinations(ventaneo,2)
         # diccionario=create_dictionary(aminoacids)
         # print(diccionario)
+        matriz1v1=[]
+        matriz2v1=[] 
+        matriz3v1=[]
+        matriz1v2=[] 
+        matriz2v2=[] 
+        matriz3v2=[]
+        cont=0
         for sequence in ventaneo:
             #print(sequence)
             #sequence=ventana(sequence_original,i,n)
@@ -185,11 +189,13 @@ def main():
                     matriz3d=llenar_matriz(tupla3,matriz3)
                     #print("coordenadas3: "+ str(tupla3))
                     #print(coordenadas3)
-                
+            if cont<len(list(ventaneo)):
+                matriz1v1.append(matriz1)    
             #print("\nMATRIZ 1D\n")
             #print(matrizd1)
             f.write("\nMATRIZ 1D\n")
             f.write(str(matriz1))
+            
             #print("\nMATRIZ 2D\n")
             #print(matrizd2)
             f.write("\nMATRIZ 2D\n")
@@ -198,6 +204,7 @@ def main():
             #print(matriz3d)
             f.write("\nMATRIZ 3D\n")
             f.write(str(matriz3))
+            cont+=1
 
         # else:
         #         break
@@ -205,6 +212,7 @@ def main():
         fin=time.time()
         print("TIEMPO:"+str(fin-inicio))
      f.close()
+     print(matriz1v1)
 
 if __name__ == '__main__':
     main()    

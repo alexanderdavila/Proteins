@@ -125,8 +125,8 @@ def main():
     aminoPreparados=prepararSecuencia(secuence)
     ventaneo=pairwise(aminoPreparados)
     print(*ventaneo)
-    a=combinations(ventaneo,2)
-    print(*a)
+
+    #print(*a)
     
     #Obtener Matriz de distancia
     pdblist=id_reading("pruebaID.txt")
