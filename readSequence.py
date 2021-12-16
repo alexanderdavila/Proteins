@@ -4,10 +4,13 @@ from Bio.PDB import PDBList
 import numpy as np
 import time
 from collections import defaultdict
+<<<<<<< HEAD
 from itertools import *
 
 n=17
 numAdd=(n // 2)
+=======
+>>>>>>> dd358738d1a9cea4655a217056c75bfec28576eb
 
 '''reading id's from pdb'''
 def id_reading (file):
