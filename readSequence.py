@@ -189,8 +189,13 @@ def main():
                     matriz3d=llenar_matriz(tupla3,matriz3)
                     #print("coordenadas3: "+ str(tupla3))
                     #print(coordenadas3)
-            if cont<len(list(ventaneo)):
-                matriz1v1.append(matriz1)    
+            
+            matriz1v1.append(matriz1)  
+            matriz1v2.append(matriz1)
+            matriz2v1.append(matriz2)
+            matriz2v2.append(matriz2)
+            matriz3v1.append(matriz3)
+            matriz3v2.append(matriz3)
             #print("\nMATRIZ 1D\n")
             #print(matrizd1)
             f.write("\nMATRIZ 1D\n")
@@ -212,8 +217,17 @@ def main():
         fin=time.time()
         print("TIEMPO:"+str(fin-inicio))
      f.close()
-     print(matriz1v1)
-
+     matriz1v1.pop()
+     matriz1v2.pop(0)
+     matriz2v1.pop()
+     matriz2v2.pop(0)
+     matriz3v1.pop()
+     matriz3v2.pop(0)
+     
+     
+     
+     matrices={"VK1":matriz1v1,"VK2":matriz2v1,"VK3":matriz3v1,"VL1":matriz1v2,"VL2":matriz2v2,"VL3":matriz3v2}
+     print(matrices["VK1"])
 if __name__ == '__main__':
     main()    
 
