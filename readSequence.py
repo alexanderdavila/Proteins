@@ -146,7 +146,7 @@ def main():
         #sequence_original="--------"+read_sequence()+"--------"
         sequence_original=prepararSecuencia(record.seq)
         ventaneo=pairwise(sequence_original)
-        #a=combinations(ventaneo,2)
+        a=combinations(ventaneo,2)
         # diccionario=create_dictionary(aminoacids)
         # print(diccionario)
         matriz1v1=[]
@@ -156,7 +156,7 @@ def main():
         matriz2v2=[] 
         matriz3v2=[]
         cont=0
-        for sequence in ventaneo:
+        for vA,vR in a:
             #print(sequence)
             #sequence=ventana(sequence_original,i,n)
             matriz1=crear_matriz()
