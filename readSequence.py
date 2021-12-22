@@ -5,6 +5,7 @@ import numpy as np
 import time
 from collections import defaultdict
 from itertools import *
+from Bio.PDB.PDBParser import PDBParser
 
 n=17
 numAdd=(n // 2)
@@ -161,6 +162,77 @@ def get_iterator(sequence_original):
     a=combinations(ventaneo,2)
     return a
 
+def contact_map(pdblist,u):
+    for i in pdblist:
+        #print("MATRIZ DE DISTANCIA "+i)
+        dist_matrix=create_dist_matrix(i,u)
+        #print(dist_matrix)
+        contact_map=create_contact_map(dist_matrix)
+        
+        return contact_map
+
+def create_dist_matrix(pdb_code,u):
+    parser=PDBParser()
+    structure = parser.get_structure(pdb_code, './PDB/pdb7a58.ent')
+    model = structure[0]
+    dist_matrix = calc_dist_matrix (model ["A"], model ["A"],u) 
+    return dist_matrix
+
+def calc_dist_matrix(chain_one, chain_two,u) :
+
+    """Returns a matrix of C-alpha distances between two chains"""
+
+    answer = np.zeros((u, u), np.float)
+    for row, residue_one in enumerate(chain_one) :
+        for col, residue_two in enumerate(chain_two) :
+            valor=calc_residue_dist(residue_one, residue_two)
+            if(valor==-1):
+                continue
+            else:
+                answer[row, col] = valor            
+    return answer
+
+def hayContacto(contacMap):
+    dicContactos= defaultdict( list )
+ 
+    #Preparando iu1 para sacar diagonal superior
+    iu1 = np.triu_indices(len(contacMap),k=1)
+   
+    dsContacto = contacMap[iu1]
+    for j in dsContacto:
+         dicContactos['contactos'].append(j)
+    return dicContactos
+
+def posiconesIJ(contacMap):
+    li=[]
+    dicPosI = defaultdict( list )
+    dicPosJ = defaultdict( list )
+    #Preparando iu1 para sacar diagonal superior
+    iu1 = np.triu_indices(len(contacMap),k=1)
+    #Posiciones i y j del Mapa de contacto
+    dicPosI['dicPosI'] = iu1[0] 
+    dicPosJ['dicPosJ'] = iu1[1]
+
+    li=[dicPosI,dicPosJ]
+    return li
+
+def calc_residue_dist(residue_one, residue_two) :
+    """Returns the C-alpha distance between two residues"""
+    try:
+        diff_vector = residue_one["CA"].coord -residue_two["CA"].coord
+        distance=0
+        distance=np.sqrt(np.sum(diff_vector*diff_vector))
+        replace=np.nan_to_num(distance,nan=-1)
+
+        return replace
+    except:       
+        return -1
+
+def create_contact_map(distance_matrix) :
+    distance_matrix[distance_matrix>8]=0
+    distance_matrix[distance_matrix>0]=1
+    return distance_matrix
+
 def main():
      f = open('test.txt','w')
      inicio=time.time()
@@ -184,6 +256,11 @@ def main():
         f.write("tamaño secuencia: "+str(len(record.seq)))
         #sequence_original="--------"+read_sequence()+"--------"
         sequence_original=prepararSecuencia(record.seq)
+        tamMatriz=len(secuence)
+        a=get_iterator(sequence_original)
+        for vA, vR in a:
+            ventanaA['ventanaA'].append(vA)
+            ventanaR['ventanaR'].append(vR)
         a=get_iterator(sequence_original)
         matricesvA=[]
         matricesvR=[]
