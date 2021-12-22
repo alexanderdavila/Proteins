@@ -156,6 +156,11 @@ def crear_matrices(ventana,diccionario):
             matrices=[matriz1,matriz2,matriz3]
             return matrices
 
+def get_iterator(sequence_original):
+    ventaneo=pairwise(sequence_original)
+    a=combinations(ventaneo,2)
+    return a
+
 def main():
      f = open('test.txt','w')
      inicio=time.time()
@@ -179,56 +184,22 @@ def main():
         f.write("tamaño secuencia: "+str(len(record.seq)))
         #sequence_original="--------"+read_sequence()+"--------"
         sequence_original=prepararSecuencia(record.seq)
-        ventaneo=pairwise(sequence_original)
-        a=combinations(ventaneo,2)
-        # diccionario=create_dictionary(aminoacids)
-        # print(diccionario)
+        a=get_iterator(sequence_original)
         matricesvA=[]
         matricesvR=[]
         matrices={} 
-        # matriz3v1=[]
-        # matriz1v2=[] 
-        # matriz2v2=[] 
-        # matriz3v2=[]
-        #cont=0
         for vA,vR in a:
-            #print(sequence)
-            #sequence=ventana(sequence_original,i,n)
             matricesvA.append(crear_matrices(vA,diccionario)) 
             matricesvR.append(crear_matrices(vR,diccionario))
            
-            #print("\nMATRIZ 1D\n")
-            #print(matrizd1)
-            # f.write("\nMATRIZ 1D\n")
-            # f.write(str(matriz1))
-            
-            # #print("\nMATRIZ 2D\n")
-            # #print(matrizd2)
-            # f.write("\nMATRIZ 2D\n")
-            # f.write(str(matriz2))
-            # #print("\nMATRIZ 3D\n")
-            # #print(matriz3d)
-            # f.write("\nMATRIZ 3D\n")
-            # f.write(str(matriz3))
-            #cont+=1
-
-        # else:
-        #         break
+        
 
         fin=time.time()
         print("TIEMPO:"+str(fin-inicio))
-     f.close()
-    #  matriz1v1.pop()
-    #  matriz1v2.pop(0)
-    #  matriz2v1.pop()
-    #  matriz2v2.pop(0)
-    #  matriz3v1.pop()
-    #  matriz3v2.pop(0)
-     
-     
+     f.close()    
      
      matrices={"matricesvA":matricesvA,"matricesvR":matricesvR}
-     print(matrices['matricesvR'])
+     print(len(matrices['matricesvR']))
 if __name__ == '__main__':
     main()    
 
